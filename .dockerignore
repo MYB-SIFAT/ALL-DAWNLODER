@@ -1,0 +1,16 @@
+downloads/
+temp/
+downloads.db
+Cookies/*.txt
+__pycache__/
+*.pyc
+*.pyo
+.env
+.env.*
+.git/
+.gitignore
+*.md
+attached_assets/
+.local/
+.agents/
+Firebase Database/

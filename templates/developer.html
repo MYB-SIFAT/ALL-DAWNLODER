@@ -1,0 +1,631 @@
+{% extends "base.html" %}
+{% block title %}Developer — ALL DAWNLODER{% endblock %}
+
+{% block content %}
+<main class="dev-page">
+
+    <!-- HERO BANNER -->
+    <div class="dev-hero">
+        <div class="dev-hero-bg"></div>
+        <div class="container">
+            <div class="dev-hero-inner">
+                <div class="dev-avatar-wrap">
+                    <img src="/static/img/dev-avatar.jpg" alt="SIFAT" class="dev-avatar-img">
+                    <span class="dev-status-dot" title="Available"></span>
+                </div>
+                <div class="dev-hero-info">
+                    <div class="dev-hero-name">SIFAT</div>
+                    <div class="dev-hero-title">Open Source Developer &amp; Content Creator</div>
+                    <div class="dev-hero-handle">
+                        <span class="dev-handle-chip"><i data-lucide="code-2"></i> MYB-SIFAT</span>
+                        <span class="dev-handle-chip"><i data-lucide="map-pin"></i> Bangladesh</span>
+                    </div>
+                    <p class="dev-hero-bio">Building free tools for everyone. I create open-source software and share content about programming, tech &amp; development. Creator of ALL DAWNLODER.</p>
+                    <div class="dev-hero-actions">
+                        <a href="https://github.com/MYB-SIFAT" target="_blank" class="dev-btn-primary">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                            GitHub
+                        </a>
+                        <a href="https://t.me/MaybeSifu" target="_blank" class="dev-btn-outline">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                            Contact
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STATS BAR -->
+    <div class="dev-stats-bar">
+        <div class="container">
+            <div class="dev-stats-row">
+                <div class="dev-stat">
+                    <span class="dev-stat-num">1</span>
+                    <span class="dev-stat-label">Project</span>
+                </div>
+                <div class="dev-stat-divider"></div>
+                <div class="dev-stat">
+                    <span class="dev-stat-num">1000+</span>
+                    <span class="dev-stat-label">Users Served</span>
+                </div>
+                <div class="dev-stat-divider"></div>
+                <div class="dev-stat">
+                    <span class="dev-stat-num">100%</span>
+                    <span class="dev-stat-label">Free & Open Source</span>
+                </div>
+                <div class="dev-stat-divider"></div>
+                <div class="dev-stat">
+                    <span class="dev-stat-num">∞</span>
+                    <span class="dev-stat-label">Passion</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- API DOCS SECTION -->
+    <section class="api-section">
+        <div class="container">
+
+            <div class="api-section-header">
+                <div class="api-section-badge"><i data-lucide="terminal"></i> REST API</div>
+                <h2 class="api-section-title">API Documentation</h2>
+                <p class="api-section-sub">Use these endpoints from any website, app, or bot to analyze and download videos programmatically.</p>
+                <div class="api-base-url-bar">
+                    <span class="api-base-label">Base URL</span>
+                    <code class="api-base-code" id="baseUrlCode">{{ request.host_url.rstrip('/') }}</code>
+                    <button class="api-copy-btn" onclick="copyText('baseUrlCode', this)" title="Copy">
+                        <i data-lucide="copy"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="api-toggle-wrap">
+                <button class="api-toggle-btn" id="apiToggleBtn" onclick="toggleEndpoints()">
+                    <i data-lucide="code-2"></i>
+                    <span id="apiToggleText">Show API Endpoints</span>
+                    <i data-lucide="chevron-down" id="apiToggleChevron"></i>
+                </button>
+                <p class="api-toggle-hint">5 endpoints · cURL · Python · JavaScript</p>
+            </div>
+
+            <div class="api-endpoints-wrapper" id="apiEndpointsWrapper">
+
+            <!-- ENDPOINT 1: ANALYZE -->
+            <div class="api-endpoint-card">
+                <div class="api-ep-header">
+                    <span class="api-method post">POST</span>
+                    <code class="api-ep-path">/api/analyze</code>
+                    <span class="api-ep-desc">Analyze a video URL — returns title, thumbnail, platform & duration</span>
+                </div>
+                <div class="api-ep-body">
+                    <div class="api-tabs" data-group="ep1">
+                        <button class="api-tab active" data-tab="curl">cURL</button>
+                        <button class="api-tab" data-tab="python">Python</button>
+                        <button class="api-tab" data-tab="js">JavaScript</button>
+                    </div>
+                    <div class="api-code-blocks">
+                        <div class="api-code-block active" data-tab="curl">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>curl -X POST {{ request.host_url.rstrip('/') }}/api/analyze \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'</code></pre>
+                        </div>
+                        <div class="api-code-block" data-tab="python">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>import requests
+
+res = requests.post("{{ request.host_url.rstrip('/') }}/api/analyze", json={
+    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+})
+data = res.json()
+print(data["title"], data["thumbnail"])</code></pre>
+                        </div>
+                        <div class="api-code-block" data-tab="js">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>const res = await fetch("{{ request.host_url.rstrip('/') }}/api/analyze", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ" })
+});
+const data = await res.json();
+console.log(data.title, data.thumbnail);</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-io-row">
+                        <div class="api-io-block">
+                            <div class="api-io-label"><i data-lucide="arrow-up-circle"></i> Request Body</div>
+                            <pre class="api-json"><code>{
+  "url": "https://www.youtube.com/watch?v=..."
+}</code></pre>
+                        </div>
+                        <div class="api-io-block">
+                            <div class="api-io-label"><i data-lucide="arrow-down-circle"></i> Response</div>
+                            <pre class="api-json success"><code>{
+  "title": "Video Title Here",
+  "thumbnail": "https://i.ytimg.com/vi/.../hq.jpg",
+  "platform": "YouTube",
+  "duration": "3:33"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ENDPOINT 2: DOWNLOAD -->
+            <div class="api-endpoint-card">
+                <div class="api-ep-header">
+                    <span class="api-method post">POST</span>
+                    <code class="api-ep-path">/api/download</code>
+                    <span class="api-ep-desc">Start a download — returns a download ID to track progress</span>
+                </div>
+                <div class="api-ep-body">
+                    <div class="api-tabs" data-group="ep2">
+                        <button class="api-tab active" data-tab="curl">cURL</button>
+                        <button class="api-tab" data-tab="python">Python</button>
+                        <button class="api-tab" data-tab="js">JavaScript</button>
+                    </div>
+                    <div class="api-code-blocks">
+                        <div class="api-code-block active" data-tab="curl">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>curl -X POST {{ request.host_url.rstrip('/') }}/api/download \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "format": "best"}'</code></pre>
+                        </div>
+                        <div class="api-code-block" data-tab="python">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>import requests
+
+res = requests.post("{{ request.host_url.rstrip('/') }}/api/download", json={
+    "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "format": "best"   # best | medium | small | audio
+})
+download_id = res.json()["id"]
+print("Download started:", download_id)</code></pre>
+                        </div>
+                        <div class="api-code-block" data-tab="js">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>const res = await fetch("{{ request.host_url.rstrip('/') }}/api/download", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ url: "https://youtu.be/dQw4w9WgXcQ", format: "best" })
+});
+const { id } = await res.json();
+console.log("Download ID:", id);</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-io-row">
+                        <div class="api-io-block">
+                            <div class="api-io-label"><i data-lucide="arrow-up-circle"></i> Request Body</div>
+                            <pre class="api-json"><code>{
+  "url": "https://...",
+  "format": "best"
+}</code></pre>
+                            <div class="api-param-table">
+                                <div class="api-param-row header">
+                                    <span>Field</span><span>Values</span>
+                                </div>
+                                <div class="api-param-row">
+                                    <span><code>format</code></span>
+                                    <span><code>best</code> · <code>medium</code> · <code>small</code> · <code>audio</code></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="api-io-block">
+                            <div class="api-io-label"><i data-lucide="arrow-down-circle"></i> Response</div>
+                            <pre class="api-json success"><code>{
+  "id": "a1b2c3d4-e5f6-..."
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ENDPOINT 3: STATUS -->
+            <div class="api-endpoint-card">
+                <div class="api-ep-header">
+                    <span class="api-method get">GET</span>
+                    <code class="api-ep-path">/api/status/&lt;download_id&gt;</code>
+                    <span class="api-ep-desc">Poll download progress — keep calling until status is <code>completed</code></span>
+                </div>
+                <div class="api-ep-body">
+                    <div class="api-tabs" data-group="ep3">
+                        <button class="api-tab active" data-tab="curl">cURL</button>
+                        <button class="api-tab" data-tab="python">Python</button>
+                        <button class="api-tab" data-tab="js">JavaScript</button>
+                    </div>
+                    <div class="api-code-blocks">
+                        <div class="api-code-block active" data-tab="curl">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>curl {{ request.host_url.rstrip('/') }}/api/status/&lt;download_id&gt;</code></pre>
+                        </div>
+                        <div class="api-code-block" data-tab="python">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>import requests, time
+
+download_id = "a1b2c3d4-..."
+while True:
+    res = requests.get(f"{{ request.host_url.rstrip('/') }}/api/status/{download_id}")
+    data = res.json()
+    print(data["status"], data.get("progress", ""))
+    if data["status"] in ("completed", "error"):
+        break
+    time.sleep(2)</code></pre>
+                        </div>
+                        <div class="api-code-block" data-tab="js">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>async function pollStatus(id) {
+  while (true) {
+    const res = await fetch(`{{ request.host_url.rstrip('/') }}/api/status/${id}`);
+    const data = await res.json();
+    console.log(data.status, data.progress);
+    if (data.status === "completed" || data.status === "error") break;
+    await new Promise(r => setTimeout(r, 2000));
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-io-row">
+                        <div class="api-io-block">
+                            <div class="api-io-label"><i data-lucide="loader"></i> While Downloading</div>
+                            <pre class="api-json"><code>{
+  "status": "downloading",
+  "progress": "47",
+  "speed": "3.2MiB/s",
+  "title": "Video Title"
+}</code></pre>
+                        </div>
+                        <div class="api-io-block">
+                            <div class="api-io-label"><i data-lucide="check-circle"></i> When Done</div>
+                            <pre class="api-json success"><code>{
+  "status": "completed",
+  "progress": "100",
+  "filename": "video.mp4",
+  "title": "Video Title",
+  "thumbnail": "https://..."
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-status-legend">
+                        <div class="api-status-item"><span class="api-status-dot starting"></span> <code>starting</code> — initializing</div>
+                        <div class="api-status-item"><span class="api-status-dot downloading"></span> <code>downloading</code> — in progress</div>
+                        <div class="api-status-item"><span class="api-status-dot completed"></span> <code>completed</code> — ready to download</div>
+                        <div class="api-status-item"><span class="api-status-dot error"></span> <code>error</code> — failed</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ENDPOINT 4: FILE -->
+            <div class="api-endpoint-card">
+                <div class="api-ep-header">
+                    <span class="api-method get">GET</span>
+                    <code class="api-ep-path">/file/&lt;download_id&gt;</code>
+                    <span class="api-ep-desc">Download the finished file — call after status is <code>completed</code></span>
+                </div>
+                <div class="api-ep-body">
+                    <div class="api-tabs" data-group="ep4">
+                        <button class="api-tab active" data-tab="curl">cURL</button>
+                        <button class="api-tab" data-tab="python">Python</button>
+                        <button class="api-tab" data-tab="js">JavaScript</button>
+                    </div>
+                    <div class="api-code-blocks">
+                        <div class="api-code-block active" data-tab="curl">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>curl -L -o video.mp4 {{ request.host_url.rstrip('/') }}/file/&lt;download_id&gt;</code></pre>
+                        </div>
+                        <div class="api-code-block" data-tab="python">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>import requests
+
+download_id = "a1b2c3d4-..."
+res = requests.get(f"{{ request.host_url.rstrip('/') }}/file/{download_id}", stream=True)
+with open("video.mp4", "wb") as f:
+    for chunk in res.iter_content(chunk_size=8192):
+        f.write(chunk)
+print("Saved!")</code></pre>
+                        </div>
+                        <div class="api-code-block" data-tab="js">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>// Browser: trigger download
+window.location.href = `{{ request.host_url.rstrip('/') }}/file/${downloadId}`;
+
+// Node.js: save to file
+const fs = require("fs");
+const res = await fetch(`{{ request.host_url.rstrip('/') }}/file/${downloadId}`);
+const buffer = await res.arrayBuffer();
+fs.writeFileSync("video.mp4", Buffer.from(buffer));</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-info-note">
+                        <i data-lucide="info"></i>
+                        Files are automatically deleted after <strong>24 hours</strong>. Download before expiry.
+                    </div>
+                </div>
+            </div>
+
+            <!-- ENDPOINT 5: HISTORY -->
+            <div class="api-endpoint-card">
+                <div class="api-ep-header">
+                    <span class="api-method get">GET</span>
+                    <code class="api-ep-path">/api/history</code>
+                    <span class="api-ep-desc">Get the last 10 downloads</span>
+                </div>
+                <div class="api-ep-body">
+                    <div class="api-tabs" data-group="ep5">
+                        <button class="api-tab active" data-tab="curl">cURL</button>
+                        <button class="api-tab" data-tab="python">Python</button>
+                        <button class="api-tab" data-tab="js">JavaScript</button>
+                    </div>
+                    <div class="api-code-blocks">
+                        <div class="api-code-block active" data-tab="curl">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>curl {{ request.host_url.rstrip('/') }}/api/history</code></pre>
+                        </div>
+                        <div class="api-code-block" data-tab="python">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>import requests
+
+res = requests.get("{{ request.host_url.rstrip('/') }}/api/history")
+for item in res.json():
+    print(item["title"], item["platform"], item["date"])</code></pre>
+                        </div>
+                        <div class="api-code-block" data-tab="js">
+                            <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                            <pre><code>const res = await fetch("{{ request.host_url.rstrip('/') }}/api/history");
+const history = await res.json();
+history.forEach(item => console.log(item.title, item.platform));</code></pre>
+                        </div>
+                    </div>
+                    <div class="api-io-row">
+                        <div class="api-io-block" style="flex:1">
+                            <div class="api-io-label"><i data-lucide="arrow-down-circle"></i> Response (array)</div>
+                            <pre class="api-json success"><code>[
+  {
+    "id": "a1b2c3d4-...",
+    "title": "Video Title",
+    "platform": "YouTube",
+    "thumbnail": "https://...",
+    "date": "2026-06-16 10:30:00",
+    "filename": "video.mp4"
+  },
+  ...
+]</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FULL FLOW EXAMPLE -->
+            <div class="api-flow-card">
+                <div class="api-flow-title"><i data-lucide="workflow"></i> Full Flow Example (Python)</div>
+                <div class="api-code-blocks">
+                    <div class="api-code-block active" data-tab="python" style="position:relative">
+                        <button class="api-copy-btn code-copy" onclick="copyBlock(this)" title="Copy"><i data-lucide="copy"></i></button>
+                        <pre><code>import requests, time
+
+BASE = "{{ request.host_url.rstrip('/') }}"
+VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+
+# Step 1: Analyze
+info = requests.post(f"{BASE}/api/analyze", json={"url": VIDEO_URL}).json()
+print(f"Title: {info['title']} | Platform: {info['platform']}")
+
+# Step 2: Start download
+dl = requests.post(f"{BASE}/api/download", json={"url": VIDEO_URL, "format": "best"}).json()
+download_id = dl["id"]
+
+# Step 3: Poll status
+while True:
+    status = requests.get(f"{BASE}/api/status/{download_id}").json()
+    print(f"Status: {status['status']} | Progress: {status.get('progress', 0)}%")
+    if status["status"] == "completed":
+        filename = status["filename"]
+        break
+    elif status["status"] == "error":
+        raise Exception(status.get("error", "Download failed"))
+    time.sleep(2)
+
+# Step 4: Save file
+res = requests.get(f"{BASE}/file/{download_id}", stream=True)
+with open(filename, "wb") as f:
+    for chunk in res.iter_content(8192):
+        f.write(chunk)
+print(f"Saved: {filename}")</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            </div><!-- end api-endpoints-wrapper -->
+
+        </div>
+    </section>
+
+    <!-- MAIN CONTENT -->
+    <section class="dev-body">
+        <div class="container">
+            <div class="dev-grid">
+
+                <!-- LEFT: ABOUT + SKILLS -->
+                <div class="dev-col-left">
+
+                    <div class="dev-card">
+                        <div class="dev-card-title"><i data-lucide="user"></i> About Me</div>
+                        <p class="dev-about-text">Hey! I'm <strong>SIFAT</strong>, an open-source developer from Bangladesh. I love building tools that are free for everyone to use. My focus is on practical, lightweight software that solves real problems.</p>
+                        <p class="dev-about-text">I created <strong>ALL DAWNLODER</strong> because I wanted a simple, fast, self-hostable video downloader with no ads, no trackers, and no paywalls.</p>
+                    </div>
+
+                    <div class="dev-card">
+                        <div class="dev-card-title"><i data-lucide="zap"></i> Tech Stack</div>
+                        <div class="dev-stack-grid">
+                            <div class="dev-stack-item">
+                                <i class="devicon-javascript-plain colored"></i>
+                                <span>JavaScript</span>
+                            </div>
+                            <div class="dev-stack-item">
+                                <i class="devicon-typescript-plain colored"></i>
+                                <span>TypeScript</span>
+                            </div>
+                            <div class="dev-stack-item">
+                                <i class="devicon-python-plain colored"></i>
+                                <span>Python</span>
+                            </div>
+                            <div class="dev-stack-item">
+                                <i class="devicon-html5-plain colored"></i>
+                                <span>HTML</span>
+                            </div>
+                            <div class="dev-stack-item">
+                                <i class="devicon-css3-plain colored"></i>
+                                <span>CSS</span>
+                            </div>
+                            <div class="dev-stack-item">
+                                <i class="devicon-nodejs-plain colored"></i>
+                                <span>Node.js</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="dev-card">
+                        <div class="dev-card-title"><i data-lucide="folder-open"></i> Featured Project</div>
+                        <div class="dev-project-item">
+                            <div class="dev-project-icon">⬇</div>
+                            <div class="dev-project-info">
+                                <div class="dev-project-name">ALL DAWNLODER</div>
+                                <div class="dev-project-desc">Self-hosted video downloader. 1000+ platforms. Flask + yt-dlp. Free forever.</div>
+                                <div class="dev-project-tags">
+                                    <span>Flask</span><span>Python</span><span>yt-dlp</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT: SOCIAL LINKS -->
+                <div class="dev-col-right">
+
+                    <div class="dev-card">
+                        <div class="dev-card-title"><i data-lucide="share-2"></i> Find Me On</div>
+                        <div class="dev-socials">
+
+                            <a href="https://github.com/MYB-SIFAT" target="_blank" class="dev-social-row dev-s-github">
+                                <div class="dev-social-icon">
+                                    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+                                </div>
+                                <div class="dev-social-text">
+                                    <span class="dev-social-name">GitHub</span>
+                                    <span class="dev-social-sub">github.com/MYB-SIFAT</span>
+                                </div>
+                                <i data-lucide="arrow-up-right" class="dev-social-arr"></i>
+                            </a>
+
+                            <a href="https://youtube.com/@mybsifat" target="_blank" class="dev-social-row dev-s-youtube">
+                                <div class="dev-social-icon">
+                                    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                                </div>
+                                <div class="dev-social-text">
+                                    <span class="dev-social-name">YouTube</span>
+                                    <span class="dev-social-sub">@mybsifat</span>
+                                </div>
+                                <i data-lucide="arrow-up-right" class="dev-social-arr"></i>
+                            </a>
+
+                            <a href="https://www.facebook.com/mybsifat" target="_blank" class="dev-social-row dev-s-facebook">
+                                <div class="dev-social-icon">
+                                    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                                </div>
+                                <div class="dev-social-text">
+                                    <span class="dev-social-name">Facebook</span>
+                                    <span class="dev-social-sub">facebook.com/mybsifat</span>
+                                </div>
+                                <i data-lucide="arrow-up-right" class="dev-social-arr"></i>
+                            </a>
+
+                            <a href="https://x.com/DevS1Fu" target="_blank" class="dev-social-row dev-s-twitter">
+                                <div class="dev-social-icon">
+                                    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.261 5.638 5.903-5.638zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                                </div>
+                                <div class="dev-social-text">
+                                    <span class="dev-social-name">X (Twitter)</span>
+                                    <span class="dev-social-sub">@DevS1Fu</span>
+                                </div>
+                                <i data-lucide="arrow-up-right" class="dev-social-arr"></i>
+                            </a>
+
+                            <a href="https://t.me/MaybeSifu" target="_blank" class="dev-social-row dev-s-telegram">
+                                <div class="dev-social-icon">
+                                    <svg width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path d="M11.944 0A12 12 0 000 12a12 12 0 0012 12 12 12 0 0012-12A12 12 0 0012 0a12 12 0 00-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 01.171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                                </div>
+                                <div class="dev-social-text">
+                                    <span class="dev-social-name">Telegram</span>
+                                    <span class="dev-social-sub">t.me/MaybeSifu</span>
+                                </div>
+                                <i data-lucide="arrow-up-right" class="dev-social-arr"></i>
+                            </a>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function copyText(elemId, btn) {
+        const text = document.getElementById(elemId).textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            btn.classList.add('copied');
+            btn.querySelector('i').setAttribute('data-lucide', 'check');
+            lucide.createIcons();
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.querySelector('i').setAttribute('data-lucide', 'copy');
+                lucide.createIcons();
+            }, 1800);
+        });
+    }
+
+    function copyBlock(btn) {
+        const block = btn.closest('.api-code-block');
+        const text = block.querySelector('pre code').textContent;
+        navigator.clipboard.writeText(text).then(() => {
+            btn.classList.add('copied');
+            btn.querySelector('i').setAttribute('data-lucide', 'check');
+            lucide.createIcons();
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.querySelector('i').setAttribute('data-lucide', 'copy');
+                lucide.createIcons();
+            }, 1800);
+        });
+    }
+
+    function toggleEndpoints() {
+        const wrapper = document.getElementById('apiEndpointsWrapper');
+        const btn = document.getElementById('apiToggleBtn');
+        const text = document.getElementById('apiToggleText');
+        const chevron = document.getElementById('apiToggleChevron');
+        const isOpen = wrapper.classList.toggle('open');
+        text.textContent = isOpen ? 'Hide API Endpoints' : 'Show API Endpoints';
+        chevron.classList.toggle('open', isOpen);
+    }
+
+    document.querySelectorAll('.api-tabs').forEach(tabBar => {
+        tabBar.querySelectorAll('.api-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.dataset.tab;
+                const body = tabBar.closest('.api-ep-body') || tabBar.closest('.api-flow-card');
+                tabBar.querySelectorAll('.api-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                body.querySelectorAll('.api-code-block').forEach(block => {
+                    block.classList.toggle('active', block.dataset.tab === target);
+                });
+            });
+        });
+    });
+</script>
+{% endblock %}

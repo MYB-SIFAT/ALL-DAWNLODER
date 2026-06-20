@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Download History — ALL DAWNLODER{% endblock %}
+
+{% block content %}
+<main>
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-inner">
+                <div class="section-label">Download History</div>
+                <h1 class="page-title">Your Downloads</h1>
+                <p class="page-subtitle">All your recent downloads stored here for <strong>24 hours</strong>. Files are automatically cleaned up after expiry.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="history-page-section">
+        <div class="container">
+            <div class="history-toolbar">
+                <div class="history-count-label" id="history-count">Loading...</div>
+                <div style="display:flex;gap:10px;align-items:center;">
+                    <span class="storage-badge"><i data-lucide="clock" style="width:12px;height:12px;"></i> Stored 24h</span>
+                </div>
+            </div>
+
+            <div id="history-list" class="history-grid-page">
+                <div class="history-loading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading history...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA when empty -->
+    <section class="cta-section" id="cta-empty" style="display:none;">
+        <div class="container">
+            <div class="cta-box">
+                <div style="font-size:56px;margin-bottom:16px;">📂</div>
+                <h2>No Downloads Yet</h2>
+                <p>Your download history will appear here once you start downloading.</p>
+                <a href="/" class="btn-primary" style="text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-top:24px;">
+                    <i data-lucide="download"></i> Start Downloading
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+async function loadHistory() {
+    try {
+        const res = await fetch('/api/history');
+        const data = await res.json();
+        const list = document.getElementById('history-list');
+        const countLabel = document.getElementById('history-count');
+        const ctaEmpty = document.getElementById('cta-empty');
+
+        if (data.length === 0) {
+            list.innerHTML = '';
+            countLabel.textContent = '0 downloads';
+            ctaEmpty.style.display = 'block';
+            return;
+        }
+
+        ctaEmpty.style.display = 'none';
+        countLabel.textContent = `${data.length} download${data.length > 1 ? 's' : ''}`;
+
+        list.innerHTML = data.map(item => {
+            const fileType = item.filename && item.filename.endsWith('.mp3') ? 'Audio' : 'Video';
+            const date = item.date ? new Date(item.date).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' }) : '';
+            return `
+            <div class="history-item-page">
+                <div class="history-item-thumb">
+                    <img src="${item.thumbnail || ''}" alt="thumbnail" onerror="this.parentElement.style.background='#f4f4f5'">
+                    <div class="history-item-type ${fileType === 'Audio' ? 'audio' : 'video'}">${fileType}</div>
+                </div>
+                <div class="history-item-body">
+                    <div class="history-item-meta">
+                        <span class="history-platform-tag">${item.platform || 'Media'}</span>
+                        <span class="history-date-text">${date}</span>
+                    </div>
+                    <h4 class="history-item-title">${item.title || 'Unknown Title'}</h4>
+                    <div class="history-item-footer">
+                        <span class="history-filename">${item.filename || ''}</span>
+                        <a href="/file/${item.id}" class="btn-dl-again">
+                            <i data-lucide="download" style="width:15px;height:15px;"></i>
+                            Download Again
+                        </a>
+                    </div>
+                </div>
+            </div>`;
+        }).join('');
+
+        lucide.createIcons();
+    } catch(e) {
+        document.getElementById('history-list').innerHTML = '<p style="text-align:center;color:#9CA3AF;padding:40px;">Failed to load history.</p>';
+    }
+}
+
+loadHistory();
+setInterval(loadHistory, 10000);
+</script>
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block title %}ALL DAWNLODER | Download Anything{% endblock %}
+
+{% block content %}
+<main>
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="container">
+            <div class="badge-new">
+                <span class="badge-dot"></span>
+                1000+ Platforms Supported
+            </div>
+            <div class="cat-mascot-wrap">
+                <img src="/static/cat.png" alt="Cat mascot" class="cat-mascot">
+            </div>
+
+            <!-- INPUT CARD -->
+            <div class="main-card">
+                <div class="input-group">
+                    <div class="input-wrapper">
+                        <i data-lucide="link-2" class="input-icon"></i>
+                        <input type="text" id="url-input" placeholder="Paste video URL here..." autocomplete="off" spellcheck="false">
+                        <button id="clear-btn" class="btn-clear hide">
+                            <i data-lucide="x-circle"></i>
+                        </button>
+                    </div>
+                    <button id="analyze-btn" class="btn-primary">
+                        <i data-lucide="search"></i>
+                        Analyze
+                    </button>
+                </div>
+                <div class="input-hints">
+                    <span><i data-lucide="play-circle" style="width:14px;height:14px;"></i> YouTube</span>
+                    <span><i data-lucide="camera" style="width:14px;height:14px;"></i> Instagram</span>
+                    <span>TikTok</span>
+                    <span>Facebook</span>
+                    <span>+1000 more</span>
+                </div>
+            </div>
+
+            <!-- PREVIEW AREA -->
+            <div id="preview-area" class="preview-card hide">
+                <div class="preview-content">
+                    <div class="preview-thumb-wrap">
+                        <img id="video-thumb" src="" alt="Thumbnail">
+                        <div class="preview-play-badge"><i data-lucide="play"></i></div>
+                    </div>
+                    <div class="preview-info">
+                        <span id="platform-tag" class="platform-tag">YouTube</span>
+                        <h3 id="video-title">Video Title</h3>
+                        <p class="preview-hint">Choose your preferred download format below</p>
+                    </div>
+                </div>
+                <div class="format-grid">
+                    <button class="format-btn" data-format="best">
+                        <div class="format-icon best"><i data-lucide="zap"></i></div>
+                        <div class="btn-text">
+                            <strong>Best Quality</strong>
+                            <span>Highest resolution</span>
+                        </div>
+                        <i data-lucide="chevron-right" class="arrow-icon"></i>
+                    </button>
+                    <button class="format-btn" data-format="medium">
+                        <div class="format-icon medium"><i data-lucide="monitor"></i></div>
+                        <div class="btn-text">
+                            <strong>HD 720p</strong>
+                            <span>Standard HD</span>
+                        </div>
+                        <i data-lucide="chevron-right" class="arrow-icon"></i>
+                    </button>
+                    <button class="format-btn" data-format="small">
+                        <div class="format-icon small"><i data-lucide="smartphone"></i></div>
+                        <div class="btn-text">
+                            <strong>Mobile 480p</strong>
+                            <span>Fast & small size</span>
+                        </div>
+                        <i data-lucide="chevron-right" class="arrow-icon"></i>
+                    </button>
+                    <button class="format-btn" data-format="audio">
+                        <div class="format-icon audio"><i data-lucide="music"></i></div>
+                        <div class="btn-text">
+                            <strong>MP3 Audio</strong>
+                            <span>192kbps quality</span>
+                        </div>
+                        <i data-lucide="chevron-right" class="arrow-icon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- DOWNLOAD STATUS -->
+            <div id="status-card" class="status-card hide">
+                <div class="status-header">
+                    <img id="status-thumb" src="" alt="Thumbnail">
+                    <div class="status-info">
+                        <h4 id="status-title">Downloading...</h4>
+                        <div class="progress-container">
+                            <div class="progress-bar">
+                                <div id="progress-fill" class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <span id="progress-percent">0%</span>
+                        </div>
+                        <p id="status-meta">Connecting to server...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUCCESS -->
+            <div id="success-card" class="success-card hide">
+                <div class="success-anim">
+                    <div class="success-ring"></div>
+                    <i data-lucide="check" class="success-check"></i>
+                </div>
+                <h3>Ready to Download!</h3>
+                <p>Your file is ready. It will be available for <strong>24 hours</strong>.</p>
+                <a id="download-link" href="#" class="btn-download">
+                    <i data-lucide="download-cloud"></i>
+                    Download File
+                </a>
+                <button id="new-download-btn" class="btn-outline">
+                    <i data-lucide="plus"></i>
+                    New Download
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-num">1000+</div>
+                    <div class="stat-label">Platforms</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">100%</div>
+                    <div class="stat-label">Free Forever</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">24h</div>
+                    <div class="stat-label">File Storage</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">0</div>
+                    <div class="stat-label">Signup Needed</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/app.js"></script>
+{% endblock %}

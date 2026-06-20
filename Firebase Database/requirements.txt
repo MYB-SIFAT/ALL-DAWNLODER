@@ -1,0 +1,6 @@
+Flask==3.0.0
+flask-cors==4.0.0
+yt-dlp==2026.06.09
+Werkzeug==3.0.1
+firebase-admin==6.4.0
+google-cloud-firestore==2.14.0

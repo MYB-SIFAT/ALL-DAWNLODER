@@ -1,0 +1,307 @@
+{% extends "base.html" %}
+{% block title %}Cookies Setup | ALL DAWNLODER{% endblock %}
+
+{% block content %}
+<main class="cookies-page">
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <div class="container">
+            <div class="page-hero-inner">
+                <div class="badge-new" style="margin-bottom:18px;">
+                    <span class="badge-dot"></span>
+                    Cookie Manager
+                </div>
+                <h1 class="page-title">🍪 Cookies Setup</h1>
+                <p class="page-subtitle">Add cookies for YouTube, Facebook and other platforms to unlock age-restricted or private content.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATUS GRID -->
+    <section class="cookies-section">
+        <div class="container">
+
+            <!-- LIVE STATUS -->
+            <div class="ck-block">
+                <div class="ck-block-header">
+                    <i data-lucide="shield-check"></i>
+                    <div>
+                        <h3>Cookie Status</h3>
+                        <p>Which platforms have cookies configured right now</p>
+                    </div>
+                </div>
+                <div class="ck-status-grid" id="cookie-status-grid">
+                    {% set icons = {'youtube':'▶', 'facebook':'f', 'instagram':'📷', 'tiktok':'♪', 'twitter':'✕'} %}
+                    {% set colors = {'youtube':'#FF0000', 'facebook':'#1877F2', 'instagram':'#E1306C', 'tiktok':'#000', 'twitter':'#000'} %}
+                    {% for platform, info in cookies_status.items() %}
+                    <div class="ck-status-card {% if info.configured %}configured{% endif %}">
+                        <div class="ck-status-icon" style="background:{{ colors.get(platform,'#555') }}20; color:{{ colors.get(platform,'#555') }};">
+                            <span style="font-size:18px;">{{ icons.get(platform,'🌐') }}</span>
+                        </div>
+                        <div class="ck-status-info">
+                            <strong>{{ platform|capitalize }}</strong>
+                            {% if info.configured %}
+                                <span class="ck-badge ok">
+                                    <i data-lucide="check-circle-2" style="width:11px;height:11px;"></i>
+                                    {% if info.method == 'env' %}Via Env Var{% else %}Via File{% endif %}
+                                </span>
+                            {% else %}
+                                <span class="ck-badge none">Not set</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- TEST COOKIE -->
+            <div class="ck-block ck-test-block">
+                <div class="ck-block-header">
+                    <i data-lucide="flask-conical"></i>
+                    <div>
+                        <h3>Test Cookie</h3>
+                        <p>Check if your saved cookie actually works before downloading</p>
+                    </div>
+                </div>
+                <div class="ck-test-grid">
+                    {% set platform_icons = {'youtube':'▶', 'facebook':'f', 'instagram':'📷', 'tiktok':'♪', 'twitter':'✕'} %}
+                    {% set platform_colors = {'youtube':'#FF0000', 'facebook':'#1877F2', 'instagram':'#E1306C', 'tiktok':'#000', 'twitter':'#000'} %}
+                    {% for platform, info in cookies_status.items() %}
+                    <div class="ck-test-row" id="test-row-{{ platform }}">
+                        <div class="ck-test-platform">
+                            <div class="ck-status-icon" style="background:{{ platform_colors.get(platform,'#555') }}20; color:{{ platform_colors.get(platform,'#555') }}; width:36px; height:36px; min-width:36px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+                                <span style="font-size:15px;">{{ platform_icons.get(platform,'🌐') }}</span>
+                            </div>
+                            <span class="ck-test-name">{{ platform|capitalize }}</span>
+                            {% if info.configured %}
+                                <span class="ck-badge ok" style="margin-left:6px;">
+                                    <i data-lucide="check-circle-2" style="width:10px;height:10px;"></i>
+                                    Configured
+                                </span>
+                            {% else %}
+                                <span class="ck-badge none" style="margin-left:6px;">Not set</span>
+                            {% endif %}
+                        </div>
+                        <div class="ck-test-actions">
+                            <div class="ck-test-result" id="result-{{ platform }}"></div>
+                            <button class="ck-test-btn {% if not info.configured %}disabled{% endif %}"
+                                    id="btn-{{ platform }}"
+                                    onclick="testCookie('{{ platform }}')"
+                                    {% if not info.configured %}disabled{% endif %}>
+                                <i data-lucide="play" style="width:13px;height:13px;"></i>
+                                Test
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- TWO METHOD CARDS -->
+            <div class="ck-methods-grid">
+
+                <!-- METHOD 1: FILE -->
+                <div class="ck-method-card">
+                    <div class="ck-method-header">
+                        <div class="ck-method-num">01</div>
+                        <div>
+                            <h3>Cookie File Method</h3>
+                            <p>Place <code>.txt</code> cookie files in the <code>Cookies/</code> folder</p>
+                        </div>
+                    </div>
+
+                    <div class="ck-step">
+                        <div class="ck-step-num">1</div>
+                        <div>
+                            <strong>Export cookies from your browser</strong>
+                            <p>Install the <em>"Get cookies.txt LOCALLY"</em> or <em>"Cookie-Editor"</em> browser extension. Log in to YouTube / Facebook / etc., then export cookies as a <strong>Netscape format</strong> <code>.txt</code> file.</p>
+                        </div>
+                    </div>
+
+                    <div class="ck-step">
+                        <div class="ck-step-num">2</div>
+                        <div>
+                            <strong>Name the file correctly</strong>
+                            <p>Save the file with the platform name inside the <code>Cookies/</code> folder:</p>
+                            <div class="ck-file-list">
+                                <div class="ck-file-row"><span class="ck-file-platform yt">YT</span> <code>Cookies/youtube.txt</code></div>
+                                <div class="ck-file-row"><span class="ck-file-platform fb">FB</span> <code>Cookies/facebook.txt</code></div>
+                                <div class="ck-file-row"><span class="ck-file-platform ig">IG</span> <code>Cookies/instagram.txt</code></div>
+                                <div class="ck-file-row"><span class="ck-file-platform tt">TT</span> <code>Cookies/tiktok.txt</code></div>
+                                <div class="ck-file-row"><span class="ck-file-platform tw">TW</span> <code>Cookies/twitter.txt</code></div>
+                                <div class="ck-file-row"><span class="ck-file-platform gen">ALL</span> <code>Cookies/cookies.txt</code> <span class="ck-note">(all platforms)</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ck-step">
+                        <div class="ck-step-num">3</div>
+                        <div>
+                            <strong>Restart the app</strong>
+                            <p>Click the <strong>Run</strong> button to restart. The app picks up cookie files automatically on each download.</p>
+                        </div>
+                    </div>
+
+                    <div class="ck-tip">
+                        <i data-lucide="info"></i>
+                        <span>Cookie files are read per-download. You can replace them at any time without restarting.</span>
+                    </div>
+                </div>
+
+                <!-- METHOD 2: ENV VAR -->
+                <div class="ck-method-card">
+                    <div class="ck-method-header">
+                        <div class="ck-method-num env">02</div>
+                        <div>
+                            <h3>Environment Variable Method</h3>
+                            <p>Paste a Base64-encoded cookie string into Replit Secrets</p>
+                        </div>
+                    </div>
+
+                    <div class="ck-step">
+                        <div class="ck-step-num">1</div>
+                        <div>
+                            <strong>Export your cookies as a .txt file</strong>
+                            <p>Same as Method 1 — use a browser extension to export the Netscape cookie file for the platform you want.</p>
+                        </div>
+                    </div>
+
+                    <div class="ck-step">
+                        <div class="ck-step-num">2</div>
+                        <div>
+                            <strong>Convert to Base64</strong>
+                            <p>Run this command in your terminal (or use an online Base64 encoder):</p>
+                            <div class="ck-code-block">
+                                <code>base64 -w 0 cookies.txt</code>
+                                <button class="ck-copy-btn" onclick="copyCode(this, 'base64 -w 0 cookies.txt')">
+                                    <i data-lucide="copy" style="width:13px;height:13px;"></i>
+                                </button>
+                            </div>
+                            <p style="margin-top:8px;">On Windows (PowerShell):</p>
+                            <div class="ck-code-block">
+                                <code>[Convert]::ToBase64String([IO.File]::ReadAllBytes("cookies.txt"))</code>
+                                <button class="ck-copy-btn" onclick="copyCode(this, '[Convert]::ToBase64String([IO.File]::ReadAllBytes(&quot;cookies.txt&quot;))')">
+                                    <i data-lucide="copy" style="width:13px;height:13px;"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ck-step">
+                        <div class="ck-step-num">3</div>
+                        <div>
+                            <strong>Add to Replit Secrets</strong>
+                            <p>Open the <strong>Secrets</strong> tab in your Replit project and create a secret with the name below, pasting your Base64 string as the value:</p>
+                            <div class="ck-env-table">
+                                <div class="ck-env-row header"><span>Platform</span><span>Secret Name</span></div>
+                                <div class="ck-env-row"><span class="ck-file-platform yt" style="font-size:10px;">YT</span><code>YOUTUBE_COOKIES</code></div>
+                                <div class="ck-env-row"><span class="ck-file-platform fb" style="font-size:10px;">FB</span><code>FACEBOOK_COOKIES</code></div>
+                                <div class="ck-env-row"><span class="ck-file-platform ig" style="font-size:10px;">IG</span><code>INSTAGRAM_COOKIES</code></div>
+                                <div class="ck-env-row"><span class="ck-file-platform tt" style="font-size:10px;">TT</span><code>TIKTOK_COOKIES</code></div>
+                                <div class="ck-env-row"><span class="ck-file-platform tw" style="font-size:10px;">TW</span><code>TWITTER_COOKIES</code></div>
+                                <div class="ck-env-row"><span class="ck-file-platform gen" style="font-size:10px;">ALL</span><code>COOKIES</code></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ck-step">
+                        <div class="ck-step-num">4</div>
+                        <div>
+                            <strong>Restart the app</strong>
+                            <p>After adding a secret, click <strong>Run</strong> to restart. The app will automatically decode and use the cookie on every download.</p>
+                        </div>
+                    </div>
+
+                    <div class="ck-tip ok">
+                        <i data-lucide="star"></i>
+                        <span><strong>Recommended for Replit.</strong> Secrets stay encrypted and are not stored in your codebase.</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- PRIORITY NOTE -->
+            <div class="ck-priority-box">
+                <div class="ck-priority-icon"><i data-lucide="list-ordered"></i></div>
+                <div>
+                    <strong>Priority Order</strong>
+                    <p>When multiple cookies are available, the app uses: <span class="ck-pri-step">① Platform env var</span> → <span class="ck-pri-step">② Generic <code>COOKIES</code> env var</span> → <span class="ck-pri-step">③ Platform file</span> → <span class="ck-pri-step">④ Generic <code>cookies.txt</code> file</span></p>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="ck-faq-section">
+                <h3 class="ck-faq-title">Common Questions</h3>
+                <div class="ck-faq-grid">
+                    <div class="ck-faq-item">
+                        <div class="ck-faq-q"><i data-lucide="help-circle"></i> Why do I need cookies?</div>
+                        <div class="ck-faq-a">Some platforms (YouTube, Facebook, Instagram) block downloads of age-restricted, members-only, or private content unless you're authenticated. Cookies let the downloader act as your logged-in account.</div>
+                    </div>
+                    <div class="ck-faq-item">
+                        <div class="ck-faq-q"><i data-lucide="help-circle"></i> Are my cookies safe?</div>
+                        <div class="ck-faq-a">Cookie files in the <code>Cookies/</code> folder are stored only on this server. Using the Secrets method keeps them encrypted and out of your codebase entirely.</div>
+                    </div>
+                    <div class="ck-faq-item">
+                        <div class="ck-faq-q"><i data-lucide="help-circle"></i> What format should the cookie file be?</div>
+                        <div class="ck-faq-a">Netscape HTTP Cookie format (the standard export format). Most browser extensions like "Get cookies.txt LOCALLY" export in this format by default.</div>
+                    </div>
+                    <div class="ck-faq-item">
+                        <div class="ck-faq-q"><i data-lucide="help-circle"></i> Do cookies expire?</div>
+                        <div class="ck-faq-a">Yes. Browser cookies have expiry dates. If downloads start failing again, re-export fresh cookies from your browser and update the file or secret.</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+function copyCode(btn, text) {
+    navigator.clipboard.writeText(text).then(() => {
+        btn.innerHTML = '<i data-lucide="check" style="width:13px;height:13px;color:#10B981;"></i>';
+        lucide.createIcons();
+        setTimeout(() => {
+            btn.innerHTML = '<i data-lucide="copy" style="width:13px;height:13px;"></i>';
+            lucide.createIcons();
+        }, 1800);
+    });
+}
+
+async function testCookie(platform) {
+    const btn = document.getElementById('btn-' + platform);
+    const resultEl = document.getElementById('result-' + platform);
+
+    btn.disabled = true;
+    btn.innerHTML = '<i data-lucide="loader-2" style="width:13px;height:13px;" class="spin"></i> Testing…';
+    lucide.createIcons();
+    resultEl.innerHTML = '';
+    resultEl.className = 'ck-test-result';
+
+    try {
+        const res = await fetch('/api/test-cookie/' + platform, { method: 'POST' });
+        const data = await res.json();
+
+        if (data.success) {
+            resultEl.innerHTML = '<i data-lucide="check-circle-2" style="width:14px;height:14px;"></i> ' + data.message;
+            resultEl.className = 'ck-test-result ok';
+        } else {
+            resultEl.innerHTML = '<i data-lucide="x-circle" style="width:14px;height:14px;"></i> ' + data.message;
+            resultEl.className = 'ck-test-result fail';
+        }
+        lucide.createIcons();
+    } catch (err) {
+        resultEl.innerHTML = '<i data-lucide="x-circle" style="width:14px;height:14px;"></i> Network error. Please try again.';
+        resultEl.className = 'ck-test-result fail';
+        lucide.createIcons();
+    }
+
+    btn.disabled = false;
+    btn.innerHTML = '<i data-lucide="rotate-cw" style="width:13px;height:13px;"></i> Re-test';
+    lucide.createIcons();
+}
+</script>
+{% endblock %}
